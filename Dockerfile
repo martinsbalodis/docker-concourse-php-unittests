@@ -35,6 +35,8 @@ wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standal
 expect -c 'set timeout 3;spawn /usr/bin/vncpasswd;expect "*?assword:*";send -- "selenium\r";expect "*?erify:*";send -- "selenium\r";expect "*?view-only password*";send -- "n\r";send -- "\r";expect eof' && \
 sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf && \
 sed -i 's/^\(log_error\s.*\)/# \1/' /etc/mysql/my.cnf && \
+mkdir /var/run/mysqld && \
+chown mysql:mysql /var/run/mysqld && \
 touch /root/.xsession && \
 apt-get remove --purge -y software-properties-common expect && \
 apt-get autoremove -y && \
