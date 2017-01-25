@@ -22,7 +22,7 @@ apt-get update && \
 DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common wget \
 nano mysql-client php-mcrypt php-cli php-mysql php-intl php-fpm php-mbstring git \
 build-essential php-curl php-bcmath php-ssh2 python-pip tar unzip php-xml \
-nodejs psmisc php-gd php-memcache lsof \
+nodejs psmisc php-gd php-memcache lsof iputils-ping php-mongodb \
 openjdk-8-jre-headless xfonts-100dpi xfonts-75dpi \
 xfonts-scalable xfonts-cyrillic tightvncserver supervisor expect \
 firefox=45.0.2+build1-0ubuntu1 fonts-ipafont-gothic xfonts-scalable openssh-server \
