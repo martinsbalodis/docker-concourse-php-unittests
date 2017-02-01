@@ -7,7 +7,7 @@ RUN locale-gen en_US.UTF-8
 ENV LANG="en_US.UTF-8" LC_ALL="en_US.UTF-8"
 
 # laravel configuration
-ENV DB_HOST="localhost" DB_DATABASE="test_database" DB_USERNAME="root" DB_PASSWORD="root"
+ENV DB_HOST="localhost" DB_DATABASE="test_database" DB_USERNAME="root" DB_PASSWORD="root" DISABLE_NOTIFIER="true"
 
 # configuration and startup scripts
 ADD fs /
