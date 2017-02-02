@@ -8,8 +8,12 @@ docker in docker. Last time I checked the image weighted 1.5 GB :(
 Container has these packages/services installed:
 
  * php
+ * nodejs
+ * build-essential
  * selenium
  * firefox
+ * chromedriver
+ * chromium-browser
  * vnc
  * mysql
  * mongodb
@@ -17,6 +21,7 @@ Container has these packages/services installed:
 You can access these services:
 
  * Selenium - port: `4444`
+ * Chromedriver - port: `9515`
  * VNC - port: `5901`, password: `selenium`
  * MySQL - port: `3306`, user: `root`, password: `root`, database: `$DB_DATABASE` or `test_database`
  * MongoDB - port: `27017`

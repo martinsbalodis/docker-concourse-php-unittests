@@ -25,13 +25,17 @@ build-essential php-curl php-bcmath php-ssh2 python-pip tar unzip php-xml \
 nodejs psmisc php-gd php-memcache lsof iputils-ping php-mongodb \
 openjdk-8-jre-headless xfonts-100dpi xfonts-75dpi \
 xfonts-scalable xfonts-cyrillic tightvncserver supervisor expect \
-firefox=45.0.2+build1-0ubuntu1 fonts-ipafont-gothic xfonts-scalable openssh-server \
+firefox=45.0.2+build1-0ubuntu1 chromium-browser fonts-ipafont-gothic xfonts-scalable openssh-server \
 mysql-server mysql-client \
 mongodb \
 net-tools && \
 mkdir /opt/selenium && \
 wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar -O /opt/selenium/selenium-server-standalone.jar && \
 /usr/local/bin/download-images.sh && \
+wget http://chromedriver.storage.googleapis.com/2.26/chromedriver_linux64.zip && \
+unzip chromedriver_linux* && \
+rm -rf chromedriver_linux* && \
+mv chromedriver /usr/local/bin/chromedriver && \
 expect -c 'set timeout 3;spawn /usr/bin/vncpasswd;expect "*?assword:*";send -- "selenium\r";expect "*?erify:*";send -- "selenium\r";expect "*?view-only password*";send -- "n\r";send -- "\r";expect eof' && \
 sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf && \
 sed -i 's/^\(log_error\s.*\)/# \1/' /etc/mysql/my.cnf && \
@@ -53,10 +57,16 @@ touch /root/.ssh/known_hosts && \
 ssh-keyscan github.com >> /root/.ssh/known_hosts && \
 ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts
 
+# Disable the SUID sandbox so that Chrome can launch without being in a privileged container.
+# One unfortunate side effect is that `google-chrome --help` will no longer work.
+RUN dpkg-divert --add --rename --divert /usr/bin/chromium-browser.real /usr/bin/chromium-browser && \
+    echo "#!/bin/bash\nexec /usr/bin/chromium-browser.real --no-sandbox --disable-gpu \"\$@\"" > /usr/bin/chromium-browser && \
+    chmod 755 /usr/bin/chromium-browser
+
 # do some container configuration
 RUN /usr/local/bin/configure_container.sh
 
 # Expose Ports
-EXPOSE 4444 5901 3306 27017
+EXPOSE 4444 5901 3306 27017 9515
 
 CMD ["/bin/bash", "/start.sh"]
