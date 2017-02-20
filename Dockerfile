@@ -14,12 +14,12 @@ ADD fs /
 
 # install all dependencies
 RUN apt-get update && \
-apt-get install -y software-properties-common curl sudo && \
+apt-get install -qqy --no-install-recommends software-properties-common curl sudo && \
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && \
 apt-get update && \
 /bin/bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password password $DB_PASSWORD'" && \
 /bin/bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password $DB_PASSWORD'" && \
-DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common wget \
+DEBIAN_FRONTEND=noninteractive apt-get -y install  wget \
 nano mysql-client php-mcrypt php-cli php-mysql php-intl php-fpm php-mbstring git \
 build-essential php-curl php-bcmath php-ssh2 python-pip tar unzip php-xml \
 nodejs psmisc php-gd php-memcache lsof iputils-ping php-mongodb \
@@ -28,7 +28,13 @@ xfonts-scalable xfonts-cyrillic tightvncserver supervisor expect \
 firefox=45.0.2+build1-0ubuntu1 chromium-browser fonts-ipafont-gothic xfonts-scalable openssh-server \
 mysql-server mysql-client \
 mongodb \
-net-tools && \
+net-tools \
+apt-transport-https \
+ca-certificates \
+lxc \
+iptables \
+python-software-properties \
+psmisc && \
 mkdir /opt/selenium && \
 wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar -O /opt/selenium/selenium-server-standalone.jar && \
 /usr/local/bin/download-images.sh && \
@@ -42,11 +48,15 @@ sed -i 's/^\(log_error\s.*\)/# \1/' /etc/mysql/my.cnf && \
 mkdir /var/run/mysqld && \
 chown mysql:mysql /var/run/mysqld && \
 touch /root/.xsession && \
-apt-get remove --purge -y software-properties-common expect && \
+apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
+DEBIAN_FRONTEND=noninteractive apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main' && \
+apt-get update -qq && \
+apt-get install -qqy --no-install-recommends docker-engine && \
+apt-get remove --purge -y software-properties-common python-software-properties expect && \
 apt-get autoremove -y && \
 apt-get clean && \
 apt-get autoclean && \
-rm -rf /var/lib/apt/lists/* && \
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 phpenmod mcrypt &&  \
 npm install -g bower && \
 npm install -g gulp && \
@@ -67,6 +77,6 @@ RUN dpkg-divert --add --rename --divert /usr/bin/chromium-browser.real /usr/bin/
 RUN /usr/local/bin/configure_container.sh
 
 # Expose Ports
-EXPOSE 4444 5901 3306 27017 9515
+EXPOSE 4444 5901 3306 27017 9515 2376
 
 CMD ["/bin/bash", "/start.sh"]

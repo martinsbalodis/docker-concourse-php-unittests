@@ -17,6 +17,7 @@ Container has these packages/services installed:
  * vnc
  * mysql
  * mongodb
+ * docker
 
 You can access these services:
 
@@ -25,6 +26,7 @@ You can access these services:
  * VNC - port: `5901`, password: `selenium`
  * MySQL - port: `3306`, user: `root`, password: `root`, database: `$DB_DATABASE` or `test_database`
  * MongoDB - port: `27017`
+ * Docker - port: `2376`
  
 ## Features
 
