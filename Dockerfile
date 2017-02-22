@@ -14,7 +14,7 @@ ADD fs /
 
 # install all dependencies
 RUN apt-get update && \
-apt-get install -qqy --no-install-recommends software-properties-common curl sudo && \
+apt-get install -qqy software-properties-common curl sudo && \
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && \
 apt-get update && \
 /bin/bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password password $DB_PASSWORD'" && \
@@ -33,7 +33,9 @@ apt-transport-https \
 ca-certificates \
 lxc \
 iptables \
+bridge-utils \
 python-software-properties \
+cgroupfs-mount \
 psmisc && \
 mkdir /opt/selenium && \
 wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar -O /opt/selenium/selenium-server-standalone.jar && \
@@ -51,7 +53,7 @@ touch /root/.xsession && \
 apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
 DEBIAN_FRONTEND=noninteractive apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main' && \
 apt-get update -qq && \
-apt-get install -qqy --no-install-recommends docker-engine && \
+apt-get install -qqy docker-engine && \
 apt-get remove --purge -y software-properties-common python-software-properties expect && \
 apt-get autoremove -y && \
 apt-get clean && \
@@ -78,5 +80,3 @@ RUN /usr/local/bin/configure_container.sh
 
 # Expose Ports
 EXPOSE 4444 5901 3306 27017 9515 2376
-
-CMD ["/bin/bash", "/start.sh"]
