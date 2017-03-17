@@ -53,5 +53,19 @@ cgroupfs_mount
 # fail on any failed command
 set -e -x
 
+# mount /var/lib/mysql as tmpfs
+mv /var/lib/mysql /var/lib/mysql-cp
+mkdir /var/lib/mysql
+mount -t tmpfs -o size=512m tmpfs /var/lib/mysql
+mv /var/lib/mysql-cp/* /var/lib/mysql
+chown mysql:mysql /var/lib/mysql
+
+# mount /var/lib/mongodb/ as tmpfs
+mv /var/lib/mongodb /var/lib/mongodb-cp
+mkdir /var/lib/mongodb
+mount -t tmpfs -o size=512m tmpfs /var/lib/mongodb
+mv /var/lib/mongodb-cp/* /var/lib/mongodb
+chown mongodb:mongodb /var/lib/mongodb
+
 # Start supervisord and services
 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
