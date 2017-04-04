@@ -36,7 +36,9 @@ iptables \
 bridge-utils \
 python-software-properties \
 cgroupfs-mount \
-psmisc && \
+psmisc \
+zip && \
+pip install --upgrade awscli && \
 mkdir /opt/selenium && \
 wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar -O /opt/selenium/selenium-server-standalone.jar && \
 /usr/local/bin/download-images.sh && \

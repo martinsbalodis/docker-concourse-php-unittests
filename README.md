@@ -18,6 +18,7 @@ Container has these packages/services installed:
  * mysql
  * mongodb
  * docker
+ * aws cli
 
 You can access these services:
 
