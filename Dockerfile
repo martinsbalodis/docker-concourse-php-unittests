@@ -27,6 +27,7 @@ nodejs psmisc php7.0-gd php7.0-memcache lsof iputils-ping php7.0-mongodb \
 openjdk-8-jre-headless xfonts-100dpi xfonts-75dpi \
 xfonts-scalable xfonts-cyrillic tightvncserver supervisor expect \
 firefox=45.0.2+build1-0ubuntu1 chromium-browser fonts-ipafont-gothic xfonts-scalable openssh-server \
+gconf2 \
 mysql-server mysql-client \
 mongodb \
 net-tools \
