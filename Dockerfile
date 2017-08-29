@@ -16,7 +16,7 @@ ADD fs /
 RUN apt-get update && \
 apt-get install -qqy software-properties-common curl sudo && \
 add-apt-repository ppa:ondrej/php && \
-curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && \
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
 apt-get update && \
 /bin/bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password password $DB_PASSWORD'" && \
 /bin/bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password $DB_PASSWORD'" && \
