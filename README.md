@@ -41,6 +41,13 @@ docker build --no-cache --tag=martinsbalodis/concourse-php-unittests .
 docker push martinsbalodis/concourse-php-unittests
 ```
 
+## Run locally only the container
+
+```
+docker run --rm -ti --name=tests -p 5901:5901 --privileged martinsbalodis/concourse-php-unittests bash
+docker exec -ti tests bash
+```
+
 ## Concourse configuration
 
 Sample concourse task script `build.yml`:

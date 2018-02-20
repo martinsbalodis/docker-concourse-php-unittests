@@ -21,9 +21,9 @@ apt-get update && \
 /bin/bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password password $DB_PASSWORD'" && \
 /bin/bash -c "debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password $DB_PASSWORD'" && \
 DEBIAN_FRONTEND=noninteractive apt-get -y install  wget \
-nano mysql-client php7.0-mcrypt php7.0-cli php7.0-mysql php7.0-intl php7.0-fpm php7.0-mbstring git \
-build-essential php7.0-curl php7.0-bcmath php7.0-ssh2 python-pip tar unzip php7.0-xml \
-nodejs psmisc php7.0-gd php7.0-memcache lsof iputils-ping php7.0-mongodb php7.0-zip \
+nano mysql-client php7.1-mcrypt php7.1-cli php7.1-mysql php7.1-intl php7.1-fpm php7.1-mbstring git \
+build-essential php7.1-curl php7.1-bcmath php7.1-ssh2 python-pip tar unzip php7.1-xml \
+nodejs psmisc php7.1-gd php7.1-memcache lsof iputils-ping php7.1-mongodb php7.1-zip \
 openjdk-8-jre-headless xfonts-100dpi xfonts-75dpi \
 xfonts-scalable xfonts-cyrillic tightvncserver supervisor expect \
 firefox=45.0.2+build1-0ubuntu1 chromium-browser fonts-ipafont-gothic xfonts-scalable openssh-server \
